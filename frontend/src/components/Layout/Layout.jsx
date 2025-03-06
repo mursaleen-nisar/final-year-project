@@ -7,6 +7,9 @@ const Layout = ({ children }) => {
   return (
     <div className="app-container">
       <aside className="sidebar">
+        <div className="logo-container">
+          <h1 className="logo">TaskEHub</h1>
+        </div>
         
         <ul className="sidebar-menu">
           <li>

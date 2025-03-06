@@ -1,11 +1,13 @@
 import React from 'react';
-import TaskForm from '../components/Tasks/TaskForm';
+import { useAuth } from '../context/AuthContext';
+import { Button } from '@mui/material';
 
 const Settings = () => {
+  const { logout } = useAuth();
   return (
     <div>
       <h1>Settings Page</h1>
-      <p>This is the settings page.</p>
+      <Button variant="contained" color="primary" onClick={logout}> Logout</Button>
     </div>
   );
 };

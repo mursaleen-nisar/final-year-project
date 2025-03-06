@@ -4,8 +4,8 @@ import ReactCalendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 
-const CLIENT_ID = "40876243376-cp1tei584hlj6o6k1ciso41a91qqvq4m.apps.googleusercontent.com";
-const API_KEY = "AIzaSyCYLpK6jtBNDo0Vz7pO5i6lyNt5CL31WkE";
+const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const API_KEY = import.meta.env.VITE_CALENDAR_API_KEY;
 const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
 const lightTheme = {

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import TaskService from '../services/task.service';
+import { useAuth } from './AuthContext';
 
 const TaskContext = createContext();
 
@@ -10,9 +11,17 @@ export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { currentUser } = useAuth();
   
   // Fetch all tasks
   const fetchTasks = useCallback(async () => {
+    // Don't attempt to fetch if no user is logged in
+    if (!currentUser) {
+        setTasks([]);
+        setLoading(false);
+        return;
+    }
+
     setLoading(true);
     try {
       const response = await TaskService.getAllTasks();
@@ -25,12 +34,17 @@ export const TaskProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [currentUser]);
 
   // Initial fetch
   useEffect(() => {
-    fetchTasks();
-  }, [fetchTasks]);
+    if (currentUser) {
+        fetchTasks();
+    } else {
+        setTasks([]);
+        setError(null);
+    }
+  }, [currentUser, fetchTasks]);
 
   // Add a new task
   const addTask = async (taskData) => {
